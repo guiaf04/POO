@@ -6,14 +6,12 @@
 using namespace std;
 using namespace fn;
 
-#define PI 3.14;
-
 class Point2D{
 public:
   double x;
   double y;
 
-  Point2D(double x, double y) : x(x), y(y){
+  Point2D(double x = 0, double y = 0) : x(x), y(y){
   }
 
   Point2D(string serial){
@@ -24,7 +22,7 @@ public:
 
   string toString() const{
     ostringstream oss;
-    oss << fixed <<setprecision(2) <<"(" << x << "," << y << ")";
+    oss << fixed <<setprecision(2) <<"(" << x << ", " << y << ")";
     return oss.str();
   }
 };
@@ -58,18 +56,18 @@ public:
 };
 
 ostream& operator<<(ostream& os, const Shape& shape){
-  return os << shape.to_string();
+  return os << shape.toString();
 }
 
 class Circle: public Shape{
-public:
   Point2D center;
   double radius;
 
-  Circle(Point2D center, double radius) : Shape("Circle"){
-    this->center = center;
-    this->radius = radius;
-  }
+public:
+  Circle(Point2D center , double radius = 0) : Shape("Circ"){
+        this->center = center;
+        this->radius = radius;
+    }
 
   bool inside(Point2D p) override{
     if(Calc::distance(center, p) <= radius)
@@ -79,52 +77,52 @@ public:
   }
 
   double getArea() override{
-    return radius * radius * PI;
+    return radius * radius * M_PI;
   }
 
   double getPerimeter() override{
-    return 2 * radius * PI;
+    return 2 * radius * M_PI;
   }
 
   virtual string toString() const override{
     stringstream ss;
-    ss << fixed << setprecision(2) << this->getName() << ": " << "C=" << this->center << ", R=" << setprecision(2) << this->radius;
+    ss << fixed << setprecision(2) << this->getName() << ": " << "C=" << this->center.toString() << ", R=" << setprecision(2) << this->radius;
 
     return ss.str();
   }
 };
 
-// class Rectangle: public Shape{
-// public:
-//     Point2D p1;
-//     Point2D p2;
+class Rectangle: public Shape{
+public:
+    Point2D p1;
+    Point2D p2;
 
-//     Rectangle(Point2D p1, Point2D p2){
-//       this->p1 = p1;
-//       this->p2 = p2;
-//     }
+    Rectangle(Point2D p1, Point2D p2) : Shape("Rect"){
+      this->p1 = p1;
+      this->p2 = p2;
+    }
 
-//     bool inside(Point2D p) override{
-//       if(p1.x <= p.x && p.x <= p2.x && p1.y <= p.y && p.y <= p2.y)
-//         return true;
-//       else
-//         return false;
-//     }
+    bool inside(Point2D p) override{
+      if(p1.x <= p.x && p.x <= p2.x && p1.y <= p.y && p.y <= p2.y)
+        return true;
+      else
+        return false;
+    }
 
-//     double getArea() override{
-//       return (p2.x - p1.x) * (p2.y - p1.y);
-//     }
+    double getArea() override{
+      return abs(p2.x - p1.x) * abs(p2.y - p1.y);
+    }
 
-//     double getPerimeter() override{
-//       return 2 * ((p2.x - p1.x) + (p2.y - p1.y));
-//     }
+    double getPerimeter() override{
+      return 2 * (abs(p2.x - p1.x) + abs(p2.y - p1.y));
+    }
 
-//     string toString() override{
-//       stringstream ss;
-//       ss << getName() << " " << p1.toString() << " " << p2.toString();
-//       return ss.str();
-//     }
-// };
+    virtual string toString() const override{
+      stringstream ss;
+      ss << getName() << ": P1=" << p1.toString() << " P2=" << p2.toString();
+      return ss.str();
+    }
+};
 
 int main(){
   vector<shared_ptr<Shape>> shapes;
@@ -137,18 +135,24 @@ int main(){
     if(args[0] == "end"){
       break;
     }else if(args[0] == "show"){
-      write(join(shapes, "\n"));
+      shapes | fn::MAP([](auto shape) {return shape->toString(); })
+             | fn::JOIN("\n")
+             | fn::WRITE();
     }else if(args[0] == "circle"){
       auto x = number(args[1]);
       auto y = number(args[2]);
       auto r = number(args[3]);
-      shapes.push_back(make_shared<Circle>(Point2D{x,y}, r));
-    // }else if(args[0] == "rect"){
-    //   auto p1 = Point2D{number(args[1]), number(args[2])};
-    //   auto p2 = Point2D{number(args[3]), number(args[4])};
-    //   shapes.push_back(make_shared<Rectangle>(p1, p2));
-    // }else if(args[0] == "info"){
-      
+      Point2D center(x, y);
+      shapes.push_back(make_shared<Circle>(center, r));
+    }else if(args[0] == "rect"){
+      auto p1 = Point2D{number(args[1]), number(args[2])};
+      auto p2 = Point2D{number(args[3]), number(args[4])};
+      shapes.push_back(make_shared<Rectangle>(p1, p2));
+    }else if(args[0] == "info"){
+      for (auto shape : shapes) {
+                fn::write(fn::format("{}: A={%.2f} P={%.2f}", 
+                shape->getName(), shape->getArea(), shape->getPerimeter()));
+            }
     }else{
       cout << "fail: invalid command\n";
     }
