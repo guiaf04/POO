@@ -64,7 +64,7 @@ public:
   vector<Setor> getSetores() {
     vector<Setor> s;
 
-    for (auto p : setores) {
+    for (auto& p : setores) {
       s.push_back(p.second);
     }
 
@@ -150,7 +150,7 @@ public:
   vector<Pessoa> getPessoas() {
     vector<Pessoa> pessoas;
 
-    for (auto p : repPessoas) {
+    for (auto& p : repPessoas) {
       pessoas.push_back(p.second);
     }
 
@@ -163,7 +163,7 @@ public:
   vector<Evento> getEventos() {
     vector<Evento> eventos;
 
-    for (auto p : repEventos) {
+    for (auto& p : repEventos) {
       eventos.push_back(p.second);
     }
 
@@ -192,8 +192,8 @@ public:
     if (repPessoas.find(name) != repPessoas.end())
       throw runtime_error("fail: pessoa " + name + " ja existe");
     else {
-      Pessoa inserida(name, meia);
-      repPessoas.insert(std::make_pair(name, inserida));
+      
+      repPessoas.insert(std::make_pair(name, Pessoa(name, meia)));
     }
   }
 
@@ -201,8 +201,7 @@ public:
     if (repEventos.find(name) != repEventos.end())
       throw runtime_error("fail: evento " + name + " ja existe");
     else {
-      Evento inserida(name);
-      repEventos.insert(std::make_pair(name, inserida));
+      repEventos.insert(std::make_pair(name, Evento(name)));
     }
   }
 
@@ -249,7 +248,7 @@ int main() {
       } else if (args[0] == "eventos") {
         vector<Evento> eventos = b.getEventos();
 
-        for (auto e : eventos) {
+        for (auto& e : eventos) {
           cout << e.toString() << endl;
         }
       } else if (args[0] == "addSetor") {

@@ -1,0 +1,364 @@
+>>>>>>>> cadastro pessoas
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$end
+<<<<<<<<
+
+>>>>>>>> cadastro duplicado
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$end
+<<<<<<<<
+
+>>>>>>>> show pessoas
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$end
+<<<<<<<<
+
+>>>>>>>> cadastro eventos
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$end
+<<<<<<<<
+
+>>>>>>>> show eventos
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+eventos
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$eventos
+forro []
+piano []
+samba []
+$end
+<<<<<<<<
+
+>>>>>>>> cadastro duplicado
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+eventos
+addEvento samba 90
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$eventos
+forro []
+piano []
+samba []
+$addEvento samba 90
+fail: evento samba ja existe
+$end
+<<<<<<<<
+
+>>>>>>>> cadastro setores
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+eventos
+addEvento samba 90
+addSetor samba pista 35.00
+addSetor samba vip 70.00
+addSetor piano lateral 15.00
+addSetor piano fundos 7.50
+addSetor forro pista 30.00
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$eventos
+forro []
+piano []
+samba []
+$addEvento samba 90
+fail: evento samba ja existe
+$addSetor samba pista 35.00
+$addSetor samba vip 70.00
+$addSetor piano lateral 15.00
+$addSetor piano fundos 7.50
+$addSetor forro pista 30.00
+$end
+<<<<<<<<
+
+>>>>>>>> show setores
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+eventos
+addEvento samba 90
+addSetor samba pista 35.00
+addSetor samba vip 70.00
+addSetor piano lateral 15.00
+addSetor piano fundos 7.50
+addSetor forro pista 30.00
+eventos
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$eventos
+forro []
+piano []
+samba []
+$addEvento samba 90
+fail: evento samba ja existe
+$addSetor samba pista 35.00
+$addSetor samba vip 70.00
+$addSetor piano lateral 15.00
+$addSetor piano fundos 7.50
+$addSetor forro pista 30.00
+$eventos
+forro [pista:30.00]
+piano [lateral:15.00, fundos:7.50]
+samba [pista:35.00, vip:70.00]
+$end
+<<<<<<<<
+
+>>>>>>>> vender ingressos
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+eventos
+addEvento samba 90
+addSetor samba pista 35.00
+addSetor samba vip 70.00
+addSetor piano lateral 15.00
+addSetor piano fundos 7.50
+addSetor forro pista 30.00
+eventos
+vender bruno samba pista
+vendas
+vender chico samba vip
+vender aline samba vip
+vendas
+vender chico piano lateral
+vendas
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$eventos
+forro []
+piano []
+samba []
+$addEvento samba 90
+fail: evento samba ja existe
+$addSetor samba pista 35.00
+$addSetor samba vip 70.00
+$addSetor piano lateral 15.00
+$addSetor piano fundos 7.50
+$addSetor forro pista 30.00
+$eventos
+forro [pista:30.00]
+piano [lateral:15.00, fundos:7.50]
+samba [pista:35.00, vip:70.00]
+$vender bruno samba pista
+$vendas
+bruno:samba:pista:17.50
+$vender chico samba vip
+$vender aline samba vip
+$vendas
+bruno:samba:pista:17.50
+chico:samba:vip:35.00
+aline:samba:vip:70.00
+$vender chico piano lateral
+$vendas
+bruno:samba:pista:17.50
+chico:samba:vip:35.00
+aline:samba:vip:70.00
+chico:piano:lateral:7.50
+$end
+<<<<<<<<
+
+>>>>>>>> erro nas vendas
+addPessoa bruno meia
+addPessoa chico meia
+addPessoa aline inteira
+addPessoa chico meia
+pessoas
+addEvento samba
+addEvento piano
+addEvento forro
+eventos
+addEvento samba 90
+addSetor samba pista 35.00
+addSetor samba vip 70.00
+addSetor piano lateral 15.00
+addSetor piano fundos 7.50
+addSetor forro pista 30.00
+eventos
+vender bruno samba pista
+vendas
+vender chico samba vip
+vender aline samba vip
+vendas
+vender chico piano lateral
+vendas
+vender chico arraia vip
+vender chico piano vip
+vender chico piano lateral
+end
+========
+$addPessoa bruno meia
+$addPessoa chico meia
+$addPessoa aline inteira
+$addPessoa chico meia
+fail: pessoa chico ja existe
+$pessoas
+[aline:inteira, bruno:meia, chico:meia]
+$addEvento samba
+$addEvento piano
+$addEvento forro
+$eventos
+forro []
+piano []
+samba []
+$addEvento samba 90
+fail: evento samba ja existe
+$addSetor samba pista 35.00
+$addSetor samba vip 70.00
+$addSetor piano lateral 15.00
+$addSetor piano fundos 7.50
+$addSetor forro pista 30.00
+$eventos
+forro [pista:30.00]
+piano [lateral:15.00, fundos:7.50]
+samba [pista:35.00, vip:70.00]
+$vender bruno samba pista
+$vendas
+bruno:samba:pista:17.50
+$vender chico samba vip
+$vender aline samba vip
+$vendas
+bruno:samba:pista:17.50
+chico:samba:vip:35.00
+aline:samba:vip:70.00
+$vender chico piano lateral
+$vendas
+bruno:samba:pista:17.50
+chico:samba:vip:35.00
+aline:samba:vip:70.00
+chico:piano:lateral:7.50
+$vender chico arraia vip
+fail: evento arraia nao existe
+$vender chico piano vip
+fail: setor vip nao existe
+$vender chico piano lateral
+$end
+<<<<<<<<
